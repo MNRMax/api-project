@@ -6,7 +6,7 @@ displaySkin("mnrmax")
 function displaySkin(name) {
     let rawData = get(`https://api.mojang.com/users/profiles/minecraft/${name}`)
     let data = JSON.parse(rawData)
-    
+    console.log(data.uuid)
 }
 function get(url) {
     var xmlHttp = new XMLHttpRequest();
