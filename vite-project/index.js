@@ -1,12 +1,16 @@
 const nameElement = document.getElementById("name")
+const ign = document.getElementById("ign")
+const submit = document.getElementById("submit")
 const image = document.getElementById("image")
 
-displaySkin("mnrmax")
+submit.addEventListener
 
 function displaySkin(name) {
-    let rawData = get(`https://api.mojang.com/users/profiles/minecraft/${name}`)
+    console.log('test')
+    let rawData = get(`https://api.ashcon.app/mojang/v2/user/${name}`)
     let data = JSON.parse(rawData)
-    console.log(data.uuid)
+    console.log()
+    image.setAttribute('src', `https://crafatar.com/avatars/${data.uuid}?overlay&default=MHF_SAlex`)
 }
 function get(url) {
     var xmlHttp = new XMLHttpRequest();

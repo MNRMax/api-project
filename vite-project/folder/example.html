@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Minecraft 3D and 2D Skin Viewer in pure CSS</title>
+	<link rel="stylesheet" href="minecraft-skinviewer.css">
+	<style>
+	body { 
+		max-width: 800px;
+		margin: 0 auto;
+	}
+	</style>
+</head>
+<body>
+    <input type="text" id="ign">
+    <button id="submit">Submit</button>
+	<style>
+		#skin-viewer *{ background-image: var(--skin); }
+		#skin-viewer .cape{ background-image: var(--cape) }
+	</style>
+	<div id="skin-viewer" class="mc-skin-viewer-9x legacy cape spin">
+
+		<div class="player">
+			<!-- Head -->
+			<div class="head" >
+				<div class="top"></div>
+				<div class="left"></div>
+				<div class="front"></div>
+				<div class="right"></div>
+				<div class="back"></div>
+				<div class="bottom"></div>
+				<div class="accessory">
+					<div class="top"></div>
+					<div class="left"></div>
+					<div class="front"></div>
+					<div class="right"></div>
+					<div class="back"></div>
+					<div class="bottom"></div>
+				</div>
+			</div>
+			<!-- Body -->
+			<div class="body">
+				<div class="top"></div>
+				<div class="left"></div>
+				<div class="front"></div>
+				<div class="right"></div>
+				<div class="back"></div>
+				<div class="bottom"></div>
+				<div class="accessory">
+					<div class="top"></div>
+					<div class="left"></div>
+					<div class="front"></div>
+					<div class="right"></div>
+					<div class="back"></div>
+					<div class="bottom"></div>
+				</div>
+			</div>
+			<!-- Left Arm -->
+			<div class="left-arm">
+				<div class="top"></div>
+				<div class="left"></div>
+				<div class="front"></div>
+				<div class="right"></div>
+				<div class="back"></div>
+				<div class="bottom"></div>
+				<div class="accessory">
+					<div class="top"></div>
+					<div class="left"></div>
+					<div class="front"></div>
+					<div class="right"></div>
+					<div class="back"></div>
+					<div class="bottom"></div>
+				</div>
+			</div>
+			<!-- Right Arm -->
+			<div class="right-arm">
+				<div class="top"></div>
+				<div class="left"></div>
+				<div class="front"></div>
+				<div class="right"></div>
+				<div class="back"></div>
+				<div class="bottom"></div>
+				<div class="accessory">
+					<div class="top"></div>
+					<div class="left"></div>
+					<div class="front"></div>
+					<div class="right"></div>
+					<div class="back"></div>
+					<div class="bottom"></div>
+				</div>
+			</div>
+			<!-- Left Leg -->
+			<div class="left-leg">
+				<div class="top"></div>
+				<div class="left"></div>
+				<div class="front"></div>
+				<div class="right"></div>
+				<div class="back"></div>
+				<div class="bottom"></div>
+				<div class="accessory">
+					<div class="top"></div>
+					<div class="left"></div>
+					<div class="front"></div>
+					<div class="right"></div>
+					<div class="back"></div>
+					<div class="bottom"></div>
+				</div>
+			</div>
+			<!-- Right Leg -->
+			<div class="right-leg">
+				<div class="top"></div>
+				<div class="left"></div>
+				<div class="front"></div>
+				<div class="right"></div>
+				<div class="back"></div>
+				<div class="bottom"></div>
+				<div class="accessory">
+					<div class="top"></div>
+					<div class="left"></div>
+					<div class="front"></div>
+					<div class="right"></div>
+					<div class="back"></div>
+					<div class="bottom"></div>
+				</div>
+			</div>
+			<!-- Cape -->
+			<div class="cape">
+				<div class="top"></div>
+				<div class="left"></div>
+				<div class="front"></div>
+				<div class="right"></div>
+				<div class="back"></div>
+				<div class="bottom"></div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+    const input = document.getElementById("ign")
+    const submit = document.getElementById("submit")
+    var r = document.querySelector(':root');
+    submit.addEventListener("click", async function() {
+        let rawData = get(`https://api.ashcon.app/mojang/v2/user/${input.value}`)
+        let data = JSON.parse(rawData)
+        if (get(`https://crafatar.com/skins/${data.uuid}?overlay`) === "404") {
+             await r.style.setProperty('--skin', `url('https://crafatar.com/skins/b1c99961d4eb498a8607360146b5cc31?overlay')`);
+        }
+        await r.style.setProperty('--skin', `url('https://crafatar.com/skins/${data.uuid}?overlay')`);
+        await r.style.setProperty('--cape', `url('https://crafatar.com/capes/${data.uuid}')`);
+    })
+
+    function get(url) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", url, false);
+        xmlHttp.send(null);
+        if (xmlHttp.status == 200) return xmlHttp.responseText;
+        else return "404"
+    }
+</script>
+</html>
